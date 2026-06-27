@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cabin Trip 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --spruce:#1E3A32;
+    --spruce-deep:#16291F;
+    --paper:#F4EFE3;
+    --paper-edge:#E7DFCC;
+    --ink:#21302A;
+    --ink-soft:#5A6A60;
+    --ember:#D9722F;
+    --ember-deep:#B85A1E;
+    --amber:#C9A227;
+    --contour:#2E5247;
+    --cream:#F4EFE3;
+    --cream-soft:#CBD8CF;
+    --shadow:0 18px 40px -22px rgba(0,0,0,.55);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  html{overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{background:var(--spruce);color:var(--cream);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;padding:0 18px 90px}
+  .wrap{max-width:760px;margin:0 auto}
+  .hero{position:relative;overflow:hidden;margin:0 -18px 26px;padding:54px 18px 40px;background:var(--spruce-deep)}
+  .hero .contours{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .hero-inner{position:relative;max-width:760px;margin:0 auto}
+  .eyebrow{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 14px}
+  h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(40px,9vw,68px);line-height:.96;letter-spacing:-.02em;margin:0 0 14px;color:var(--cream)}
+  .lede{max-width:46ch;color:var(--cream-soft);font-size:16px;margin:0}
+  .coords{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--contour);letter-spacing:.08em;margin-top:22px}
+  .coords b{color:var(--amber);font-weight:700}
+  .namecard{background:linear-gradient(180deg,#234339,#1c352c);border:1px solid var(--contour);border-radius:var(--radius);padding:18px 18px 20px;margin-bottom:26px}
+  .namecard label{display:block;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-soft);margin-bottom:9px}
+  .namecard input{width:100%;background:#13231c;border:1px solid var(--contour);color:var(--cream);border-radius:9px;padding:13px 14px;font-size:17px;font-family:inherit}
+  .namecard input::placeholder{color:#6f8479}
+  .namecard input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(217,114,47,.25)}
+  .card{background:var(--paper);color:var(--ink);border:1px solid var(--paper-edge);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px 26px;margin-bottom:20px}
+  .marker{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .marker .pin{font-family:"Space Mono",monospace;font-weight:700;font-size:12px;background:var(--spruce);color:var(--cream);padding:4px 9px;border-radius:6px;letter-spacing:.05em}
+  .marker .ttl{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:21px;letter-spacing:-.01em}
+  .hint{color:var(--ink-soft);font-size:14px;margin:2px 0 18px}
+  .date-block{border:1px solid var(--paper-edge);border-radius:11px;padding:13px 14px;margin-bottom:11px;background:#fbf8f0}
+  .date-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .date-meta .d-label{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700}
+  .date-meta .d-range{font-weight:600;font-size:16px;margin-top:2px}
+  .date-meta .d-note{font-size:12px;color:var(--ink-soft)}
+  .avail{display:flex;gap:6px;flex-shrink:0}
+  .avail button{font-family:"Space Mono",monospace;font-size:12px;border:1px solid var(--paper-edge);background:#fff;color:var(--ink-soft);border-radius:8px;padding:8px 11px;cursor:pointer;font-weight:700;transition:transform .08s ease}
+  .avail button:hover{transform:translateY(-1px)}
+  .avail button[data-on="yes"]{background:#2f6f4f;border-color:#2f6f4f;color:#fff}
+  .avail button[data-on="no"]{background:#b44a3a;border-color:#b44a3a;color:#fff}
+  .chips{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+  .dep-opt{display:flex;flex-direction:column;align-items:flex-start}
+  .people{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+  .people:empty{display:none}
+  .pchip{font-family:"Space Mono",monospace;font-size:11px;font-weight:700;color:var(--ink);background:#ece3d0;border:1px solid var(--paper-edge);border-radius:999px;padding:3px 9px;line-height:1.3}
+  .pchip.me{outline:2px solid var(--ember);outline-offset:-2px}
+  .pchip.yes{background:#dcefe2;color:#1f5638;border-color:#bfe0cd}
+  .pchip.no{background:#f1ddd8;color:#8a3a2c;border-color:#e6c5bc}
+  .pchip.drive{background:#e7ece8;color:#214034;border-color:#cdd9d0}
+  .roster-chips{margin-top:14px}
+  .roster-cap{flex-basis:100%;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-soft);margin-bottom:3px}
+  .chip{border:1px solid var(--paper-edge);background:#fff;color:var(--ink);border-radius:999px;padding:10px 16px;font-size:14.5px;cursor:pointer;font-weight:500;transition:transform .08s ease}
+  .chip:hover{transform:translateY(-1px)}
+  .chip.sel{background:var(--ember);border-color:var(--ember);color:#fff}
+  .cap-note{font-family:"Space Mono",monospace;font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+  .cap-note b{color:var(--ember)}
+  .cabin{display:flex;gap:13px;align-items:flex-start;border:1px solid var(--paper-edge);border-radius:11px;padding:14px;margin-bottom:11px;background:#fbf8f0;cursor:pointer;transition:border-color .12s ease,background .12s ease}
+  .cabin.sel{border-color:var(--ember);background:#fdf1e8}
+  .cabin.dim{opacity:.5}
+  .cabin .box{width:22px;height:22px;border-radius:6px;border:2px solid var(--ink-soft);flex-shrink:0;margin-top:2px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+  .cabin.sel .box{background:var(--ember);border-color:var(--ember)}
+  .cabin .thumb{position:relative;width:108px;height:80px;flex-shrink:0;border-radius:9px;overflow:hidden;border:1px solid var(--paper-edge);background:#dceaf0}
+  .cabin .thumb svg,.cabin .thumb-img{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .cabin .thumb-img{object-fit:cover}
+  .cabin .c-body{flex:1;min-width:0}
+  .cabin .c-spec{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;color:var(--ink);margin-top:6px}
+  .amenities{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .amchip{font-size:11.5px;background:#eef3ec;border:1px solid #d8e2d3;color:#2f5e43;border-radius:999px;padding:3px 9px;font-weight:600}
+  .cabin .c-name{font-weight:600;font-size:16px}
+  .cabin .c-region{font-size:11.5px;color:var(--ink-soft);font-family:"Space Mono",monospace;margin-top:2px}
+  .cabin .c-region b{color:#2f6f4f;font-weight:700}
+  .cabin a.c-link{font-size:13px;color:var(--ember-deep);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(184,90,30,.35)}
+  .cabin a.c-link:hover{border-bottom-color:var(--ember-deep)}
+  .toggle{display:flex;gap:10px;margin-bottom:8px}
+  .toggle button{flex:1;border:1px solid var(--paper-edge);background:#fff;color:var(--ink);border-radius:10px;padding:12px;font-size:15px;font-weight:600;cursor:pointer}
+  .toggle button.sel{background:var(--spruce);border-color:var(--spruce);color:#fff}
+  .drive-extra{margin-top:16px;display:none}
+  .drive-extra.show{display:block}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:14px;font-weight:600;margin-bottom:7px}
+  .field .sub{font-weight:400;color:var(--ink-soft);font-size:13px}
+  .stepper{display:flex;align-items:center;width:max-content;border:1px solid var(--paper-edge);border-radius:10px;overflow:hidden}
+  .stepper button{width:46px;height:46px;border:none;background:#fff;font-size:22px;cursor:pointer;color:var(--ink)}
+  .stepper button:hover{background:#f1ead9}
+  .stepper .val{width:58px;text-align:center;font-family:"Space Mono",monospace;font-weight:700;font-size:19px}
+  select,textarea{width:100%;font-family:inherit;font-size:16px;color:var(--ink);border:1px solid var(--paper-edge);border-radius:10px;padding:12px 13px;background:#fff}
+  select:focus,textarea:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(217,114,47,.18)}
+  textarea{min-height:120px;resize:vertical;line-height:1.5}
+  .submit{width:100%;background:var(--ember);color:#fff;border:none;border-radius:13px;padding:18px;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:19px;cursor:pointer;box-shadow:0 14px 28px -14px rgba(217,114,47,.8);transition:transform .1s ease,background .15s ease}
+  .submit:hover{transform:translateY(-2px);background:var(--ember-deep)}
+  .submit:disabled{background:#9aa79f;box-shadow:none;cursor:not-allowed;transform:none}
+  .formnote{text-align:center;font-size:13px;color:var(--cream-soft);margin-top:12px}
+  .tallybar{text-align:center;margin-top:30px}
+  .tallybar button{background:transparent;border:1px solid var(--contour);color:var(--cream-soft);font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.08em;padding:11px 18px;border-radius:999px;cursor:pointer;text-transform:uppercase}
+  .tallybar button:hover{border-color:var(--amber);color:var(--amber)}
+  .tally{display:none;margin-top:22px}
+  .tally.show{display:block}
+  .tally .card h3{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;margin:0 0 4px}
+  .roster{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink-soft);margin-bottom:18px}
+  .tline{margin-bottom:16px}
+  .tline:last-child{margin-bottom:0}
+  .tline .lab{font-weight:600;font-size:15px;margin-bottom:7px;display:flex;justify-content:space-between;gap:10px}
+  .tline .lab span{color:var(--ink-soft);font-family:"Space Mono",monospace;font-size:12px;font-weight:700}
+  .bar{height:10px;background:#e9e1cf;border-radius:6px;overflow:hidden;display:flex}
+  .bar i{display:block;height:100%}
+  .seg-yes{background:#2f6f4f}.seg-no{background:#c66}
+  .votes li,.acts li,.timelist li{list-style:none}
+  .votes,.acts,.timelist{margin:0;padding:0}
+  .votes li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--paper-edge)}
+  .votes li:last-child{border-bottom:none}
+  .votes .cnt{font-family:"Space Mono",monospace;font-weight:700;background:var(--spruce);color:#fff;border-radius:6px;padding:2px 9px;font-size:13px}
+  .timelist li{padding:7px 0;border-bottom:1px dashed var(--paper-edge);font-size:14px}
+  .timelist li:last-child{border-bottom:none}
+  .timelist b{font-family:"Space Mono",monospace}
+  .acts li{padding:11px 13px;background:#fbf8f0;border:1px solid var(--paper-edge);border-radius:10px;margin-bottom:9px;font-size:14.5px}
+  .acts .who{font-family:"Space Mono",monospace;font-size:11px;color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:3px}
+  .seatcount{font-family:"Bricolage Grotesque",sans-serif;font-size:34px;font-weight:800;color:var(--ember-deep)}
+  .seatcount small{font-size:14px;color:var(--ink-soft);font-weight:500;font-family:"Inter"}
+  .empty{color:var(--ink-soft);font-style:italic;font-size:14px}
+  .done{display:none;text-align:center;background:var(--paper);color:var(--ink);border-radius:var(--radius);padding:38px 24px;box-shadow:var(--shadow);margin-bottom:20px}
+  .done.show{display:block}
+  .done .check{font-size:42px}
+  .done h2{font-family:"Bricolage Grotesque",sans-serif;font-size:26px;margin:8px 0 6px}
+  .done p{color:var(--ink-soft);margin:0 0 18px}
+  .done button{background:none;border:1px solid var(--paper-edge);color:var(--ink);border-radius:9px;padding:10px 16px;font-size:14px;cursor:pointer;font-weight:600}
+  @media (max-width:520px){
+    .date-row{flex-direction:column;align-items:stretch}
+    .avail{justify-content:stretch}.avail button{flex:1}
+    .cabin .thumb{width:88px;height:66px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="hero">
+  <svg class="contours" viewBox="0 0 760 240" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#2E5247" stroke-width="1.4">
+      <path d="M-20,210 C140,170 220,250 380,200 C520,158 600,225 800,180"/>
+      <path d="M-20,178 C150,140 230,212 390,165 C540,124 610,190 800,150"/>
+      <path d="M-20,146 C160,112 240,176 400,132 C560,92 620,156 800,120"/>
+      <path d="M-20,112 C170,84 250,140 410,98 C570,60 630,120 800,90"/>
+      <path d="M-20,78 C180,56 260,104 420,66 C580,30 640,86 800,60"/>
+      <path d="M-20,44 C190,28 270,68 430,36 C590,4 650,52 800,32"/>
+    </g>
+  </svg>
+  <div class="hero-inner">
+    <p class="eyebrow">Trip logistics · RSVP</p>
+    <h1>Cabin Trip<br/>2026</h1>
+    <p class="lede">Pick the weekends that work, pick a cabin, tell us if you can drive, and throw your ideas in the ring. Takes two minutes.</p>
+    <p class="coords">EST. PARTY OF <b id="head-count">—</b> · RESPONSES LOGGED: <b id="head-resp">0</b></p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="namecard">
+    <label for="name">Your name&nbsp;&nbsp;&nbsp;👋</label>
+    <input id="name" type="text" placeholder="So we know whose answers these are" autocomplete="name" />
+    <div id="roster-chips" class="people roster-chips"></div>
+  </div>
+
+  <div id="form">
+    <div class="card">
+      <div class="marker"><span class="pin">01</span><span class="ttl">Which weekends work?&nbsp;&nbsp;&nbsp;📅</span></div>
+      <p class="hint">Mark each one that works for you. We'll confirm the date/time soon.</p>
+      <div id="dates"></div>
+    </div>
+
+    <div class="card">
+      <div class="marker"><span class="pin">02</span><span class="ttl">When can you leave Friday?&nbsp;&nbsp;&nbsp;🕓</span></div>
+      <p class="hint">Roughly when you can hit the road, so we can time the convoy. We'll all be departing Sunday morning/afternoon.</p>
+      <div class="chips" id="depart"></div>
+    </div>
+
+    <div class="card">
+      <div class="marker"><span class="pin">03</span><span class="ttl">Pick your cabins&nbsp;&nbsp;&nbsp;🛖</span></div>
+      <p class="hint">Choose up to three you'd be happy with. Tap a listing to peek first.</p>
+      <p class="cap-note">SELECTED <b id="cabin-count">0</b> / 3</p>
+      <div id="cabins"></div>
+    </div>
+
+    <div class="card">
+      <div class="marker"><span class="pin">04</span><span class="ttl">Can you drive?&nbsp;&nbsp;&nbsp;🚗</span></div>
+      <p class="hint">If you've got wheels, tell us how many people fit comfortably — luggage included.</p>
+      <div class="toggle" id="drive-toggle">
+        <button data-d="yes">Yes, I can drive</button>
+        <button data-d="no">No / riding along</button>
+      </div>
+      <div class="people" id="drive-people"></div>
+      <div class="drive-extra" id="drive-extra">
+        <div class="field">
+          <label>Total seats <span class="sub">— including you</span></label>
+          <div class="stepper">
+            <button type="button" id="seat-minus">−</button>
+            <div class="val" id="seat-val">4</div>
+            <button type="button" id="seat-plus">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Room for luggage?</label>
+          <select id="luggage">
+            <option value="Plenty of room">Plenty of room</option>
+            <option value="Some room">Some room — pack light</option>
+            <option value="Tight">Tight — bags on laps</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="marker"><span class="pin">05</span><span class="ttl">What should we do there?&nbsp;&nbsp;&nbsp;🏞️</span></div>
+      <p class="hint">Hikes, lake day, board games, a chili cook-off — anything goes.</p>
+      <textarea id="acts" placeholder="Throw out as many ideas as you want…"></textarea>
+    </div>
+
+    <button class="submit" id="submit" disabled>Add your name first</button>
+    <p class="formnote">Your answers save with this page and everyone planning can see the tally.</p>
+  </div>
+
+  <div class="done" id="done">
+    <div class="check">🏕️</div>
+    <h2>You're in, <span id="done-name">friend</span>.</h2>
+    <p>Your picks are logged. Check the running tally below.</p>
+    <button id="edit">Edit my answers</button>
+  </div>
+
+  <div class="tallybar">
+    <button id="tally-toggle">▾ See what everyone picked</button>
+  </div>
+  <div class="tally" id="tally"></div>
+</div>
+
+<script type="module">
+const DATES = [
+  { id:'d1', label:'Option A', range:'Fri Jul 17 – Sun Jul 19', note:'' },
+  { id:'d2', label:'Option B', range:'Fri Jul 24 – Sun Jul 26', note:'' },
+  { id:'d3', label:'Option C', range:'Fri Jul 31 – Sun Aug 2',  note:'' },
+];
+const DEPART_OPTIONS = ['3–5 PM','5–7 PM','After 7 PM'];
+const CABINS = [
+  { id:'c1', name:'Lassen Volcanic NP', region:'Shasta Cascade', miles:240, scene:'volcano', rooms:4, beds:6, guests:13, amenities:['Hot tub','Game room','Fire pit'],
+    photo:'https://a0.muscache.com/im/pictures/hosting/Hosting-931448135515239153/original/4b92ef57-a0bf-4315-862f-b3550a251a93.jpeg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/86a7c8d7-9daa-4b44-ac6c-dcf79ee6cc0b?s=67&unique_share_id=f949637d-0f33-4b9c-987a-1c78399494a1' },
+  { id:'c2', name:'Sequoia & Kings Canyon NP', region:'Southern Sierra', miles:220, scene:'forest', rooms:4, beds:5, guests:8, amenities:['Hot tub','Fire pit','Mountain views'],
+    photo:'https://a0.muscache.com/im/pictures/hosting/Hosting-1556745359927344710/original/42aac710-d956-4409-bf2f-a54917095701.jpeg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/7ea78f17-898e-41f2-a193-4de97015d9d0?s=67&unique_share_id=06a4e0d5-2aa9-4839-9e10-d238c8e2e6e9' },
+  { id:'c3', name:'Truckee', region:'Tahoe', miles:200, scene:'lake', rooms:3, beds:7, guests:9, amenities:['Hot tub','BBQ grill','Dog-friendly'],
+    photo:'https://a0.muscache.com/im/pictures/hosting/Hosting-1695217690933094522/original/66e5ccfd-314d-40ab-8db2-eba9f127d5a2.jpeg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/d0083998-0982-4797-87af-d5928aabf360?s=67&unique_share_id=3f0111f6-b6de-4149-a0b3-1dc9448c3be7' },
+  { id:'c4', name:'Kings Beach', region:'Tahoe', miles:215, scene:'lake', rooms:3, beds:7, guests:10, amenities:['Hot tub','Lake views','Walk to beach'],
+    photo:'https://a0.muscache.com/im/pictures/hosting/Hosting-786264804396769184/original/bd59d924-56b0-4e2d-9ba0-b5d8bb247b66.jpeg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/05d41598-648a-4df2-9cfa-a0da00d6d1e8?s=67&unique_share_id=88185a17-7741-4b83-a1a5-08fb1381fe7c' },
+  { id:'c5', name:'Truckee 2', region:'Tahoe', miles:200, scene:'lake', rooms:5, beds:7, guests:10, amenities:['Backs to forest','Fireplace','Trail access'],
+    photo:'https://a0.muscache.com/im/pictures/5a810d72-debf-461c-a5d8-39ac4f03f9db.jpg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/73994bcc-2138-42d3-9267-c7cd1ed0d0ed?s=67&unique_share_id=df7739f8-f8d0-4c4b-9818-cb60825333d2' },
+  { id:'c6', name:'Tahoe City', region:'Tahoe', miles:210, scene:'lake', rooms:4, beds:9, guests:10, amenities:['Hot tub','Walk to beach','BBQ grill'],
+    photo:'https://a0.muscache.com/im/pictures/miso/Hosting-5746701/original/4f75d9da-50d5-4bfe-b524-622e52ae9b67.jpeg?im_w=720',
+    url:'https://www.airbnb.com/wishlists/viewonly/2d4b9cb8-0fd8-4c43-a859-3cfc2b0b5f10?s=67&unique_share_id=61f5785d-6a0f-443b-b859-9f081dc8efff' },
+];
+const PARTY_GUESS = 8;
+
+const state = { name:'', dates:{}, depart:null, cabins:[], drive:null, seats:4, luggage:'Plenty of room', acts:'' };
+let allDocs = [];
+let db=null, RESPONSES=null, _setDoc=null, _doc=null;
+const localStore = new Map();
+const slug = s => (String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'guest').slice(0,60);
+const $ = s => document.querySelector(s);
+const esc = s => String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const firstName = r => (r.name||'').trim().split(/\s+/)[0] || 'You';
+
+function pine(x,b,h,w){ return `<path d="M${x-w},${b} L${x+w},${b} L${x},${b-h} Z" fill="#27503c"/>`; }
+function sceneSVG(type){
+  const uid = 'g'+Math.random().toString(36).slice(2,8);
+  const open = `<svg viewBox="0 0 96 74" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+  const sky = `<defs><linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dceaf0"/><stop offset="1" stop-color="#eef3ea"/></linearGradient></defs><rect width="96" height="74" fill="url(#${uid})"/>`;
+  if(type==='volcano') return open+sky+`<circle cx="76" cy="16" r="7" fill="#ecd8a3"/><path d="M2,74 L36,28 L42,28 L78,74 Z" fill="#74838a"/><path d="M31,38 L39,28 L47,38 L41,42 L36,40 Z" fill="#f1f5f6"/><path d="M0,74 L0,58 Q20,48 38,58 L40,74 Z" fill="#2f5e49"/>`+pine(10,60,15,5)+pine(22,58,18,6)+pine(86,66,16,5)+`</svg>`;
+  if(type==='forest') return open+sky+`<rect x="13" y="22" width="11" height="52" fill="#8a4b2f"/><rect x="42" y="14" width="15" height="60" fill="#7c4127"/><rect x="71" y="24" width="10" height="50" fill="#8a4b2f"/><ellipse cx="19" cy="22" rx="17" ry="14" fill="#356b4a"/><ellipse cx="49" cy="14" rx="22" ry="16" fill="#2f5e43"/><ellipse cx="77" cy="24" rx="15" ry="13" fill="#3a7150"/></svg>`;
+  return open+sky+`<path d="M0,44 L18,24 L30,40 L48,20 L66,42 L82,30 L96,42 L96,52 L0,52 Z" fill="#8aa0ad"/><path d="M40,28 L48,20 L56,30 L50,32 L44,31 Z" fill="#eef3f4"/><rect y="52" width="96" height="22" fill="#6c9fc0"/><rect y="52" width="96" height="5" fill="#8ab6cf"/>`+pine(8,52,15,5)+pine(20,52,19,6)+pine(86,52,16,5)+`</svg>`;
+}
+
+function allResponses(){
+  const me = slug(state.name);
+  const list = allDocs.filter(d => d.id !== me);
+  const hasPick = state.depart || state.cabins.length || state.drive || Object.keys(state.dates).length || state.acts;
+  if(state.name || hasPick) list.push({ id:me, name:state.name||'You', dates:state.dates, depart:state.depart, cabins:state.cabins, drive:state.drive, seats:state.seats, _me:true });
+  return list;
+}
+
+function paintPeople(){
+  const R = allResponses();
+  const chip = (r,cls='') => `<span class="pchip ${cls}${r._me?' me':''}">${esc(firstName(r))}</span>`;
+  DATES.forEach(d=>{
+    const c = datesEl && datesEl.querySelector(`.people[data-date="${d.id}"]`); if(!c) return;
+    c.innerHTML = R.filter(r=>r.dates && r.dates[d.id]).map(r=>chip(r, r.dates[d.id])).join('');
+  });
+  DEPART_OPTIONS.forEach((t,i)=>{
+    const c = departEl && departEl.querySelector(`.people[data-dep="${i}"]`); if(!c) return;
+    c.innerHTML = R.filter(r=>r.depart===t).map(r=>chip(r)).join('');
+  });
+  CABINS.forEach(cb=>{
+    const c = cabinsEl && cabinsEl.querySelector(`.people[data-cab="${cb.id}"]`); if(!c) return;
+    c.innerHTML = R.filter(r=>(r.cabins||[]).includes(cb.id)).map(r=>chip(r)).join('');
+  });
+  const dc = document.querySelector('#drive-people');
+  if(dc) dc.innerHTML = R.filter(r=>r.drive==='yes').map(r=>`<span class="pchip drive${r._me?' me':''}">${esc(firstName(r))}${r.seats?` · ${r.seats} seats`:''}</span>`).join('');
+}
+
+const datesEl = $('#dates');
+DATES.forEach(d=>{
+  const block = document.createElement('div');
+  block.className='date-block';
+  block.innerHTML = `<div class="date-row"><div class="date-meta"><div class="d-label">${esc(d.label)}</div><div class="d-range">${esc(d.range)}</div>${d.note?`<div class="d-note">${esc(d.note)}</div>`:''}</div><div class="avail" data-id="${d.id}"><button data-v="yes">Yes</button><button data-v="no">No</button></div></div><div class="people" data-date="${d.id}"></div>`;
+  datesEl.appendChild(block);
+  block.querySelectorAll('.avail button').forEach(b=>{
+    b.onclick=()=>{
+      const clearing = state.dates[d.id]===b.dataset.v;
+      block.querySelectorAll('.avail button').forEach(x=>x.removeAttribute('data-on'));
+      if(clearing){ delete state.dates[d.id]; } else { state.dates[d.id]=b.dataset.v; b.setAttribute('data-on',b.dataset.v); }
+      paintPeople();
+    };
+  });
+});
+
+const departEl = $('#depart');
+DEPART_OPTIONS.forEach((t,i)=>{
+  const opt=document.createElement('div'); opt.className='dep-opt';
+  const c=document.createElement('div'); c.className='chip'; c.textContent=t;
+  c.onclick=()=>{ state.depart = state.depart===t ? null : t; departEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel')); if(state.depart) c.classList.add('sel'); paintPeople(); };
+  const p=document.createElement('div'); p.className='people'; p.dataset.dep=i;
+  opt.appendChild(c); opt.appendChild(p); departEl.appendChild(opt);
+});
+
+const cabinsEl = $('#cabins');
+CABINS.forEach(c=>{
+  const el=document.createElement('div'); el.className='cabin'; el.dataset.id=c.id;
+  const link = (c.url && c.url!=='#') ? `<a class="c-link" href="${esc(c.url)}" target="_blank" rel="noopener">View on Airbnb ↗</a>` : '';
+  const spec = [c.rooms?`${c.rooms} BR`:'', c.beds?`${c.beds} beds`:'', c.guests?`sleeps ${c.guests}`:''].filter(Boolean).join(' · ');
+  el.innerHTML = `<div class="box">✓</div><div class="thumb">${sceneSVG(c.scene)}${c.photo?`<img class="thumb-img" src="${esc(c.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"/>`:''}</div><div class="c-body"><div class="c-name">${esc(c.name)}</div><div class="c-region"><b>${esc(c.region)}</b> · ~${c.miles} mi from San Jose</div>${spec?`<div class="c-spec">${esc(spec)}</div>`:''} ${(c.amenities&&c.amenities.length)?`<div class="amenities">${c.amenities.map(a=>`<span class="amchip">${esc(a)}</span>`).join('')}</div>`:''} ${link}<div class="people" data-cab="${c.id}"></div></div>`;
+  el.querySelector('a')?.addEventListener('click',e=>e.stopPropagation());
+  el.onclick=()=>{ const i=state.cabins.indexOf(c.id); if(i>-1){ state.cabins.splice(i,1); } else { if(state.cabins.length>=3) return; state.cabins.push(c.id); } paintCabins(); paintPeople(); };
+  cabinsEl.appendChild(el);
+});
+function paintCabins(){
+  $('#cabin-count').textContent = state.cabins.length;
+  cabinsEl.querySelectorAll('.cabin').forEach(el=>{ const on=state.cabins.includes(el.dataset.id); el.classList.toggle('sel',on); el.classList.toggle('dim',!on&&state.cabins.length>=3); });
+}
+
+$('#drive-toggle').querySelectorAll('button').forEach(b=>{
+  b.onclick=()=>{
+    const clearing = state.drive===b.dataset.d;
+    $('#drive-toggle').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+    if(clearing){ state.drive=null; $('#drive-extra').classList.remove('show'); }
+    else { state.drive=b.dataset.d; b.classList.add('sel'); $('#drive-extra').classList.toggle('show', state.drive==='yes'); }
+    paintPeople();
+  };
+});
+$('#seat-minus').onclick=()=>{ state.seats=Math.max(1,state.seats-1); $('#seat-val').textContent=state.seats; paintPeople(); };
+$('#seat-plus').onclick =()=>{ state.seats=Math.min(12,state.seats+1); $('#seat-val').textContent=state.seats; paintPeople(); };
+$('#luggage').onchange=e=>state.luggage=e.target.value;
+$('#name').oninput=e=>{ state.name=e.target.value.trim(); refreshSubmit(); paintPeople(); };
+$('#acts').oninput=e=>state.acts=e.target.value;
+function refreshSubmit(){ const ok=state.name.length>0; const btn=$('#submit'); btn.disabled=!ok; btn.textContent=ok?'Send my answers':'Add your name first'; }
+
+$('#submit').onclick=async()=>{
+  if(!state.name) return;
+  const payload = { name:state.name, dates:state.dates, depart:state.depart, cabins:state.cabins, drive:state.drive, seats:state.drive==='yes'?state.seats:null, luggage:state.drive==='yes'?state.luggage:null, acts:state.acts.trim(), ts:Date.now() };
+  $('#submit').disabled=true; $('#submit').textContent='Saving…';
+  try{ await saveResponse(slug(state.name), payload); }
+  catch(e){ console.error('Save failed',e); $('#submit').disabled=false; $('#submit').textContent='Send my answers'; alert("Couldn't save your answers — please check your connection and try again."); return; }
+  $('#form').style.display='none';
+  $('#done').classList.add('show');
+  $('#done-name').textContent=state.name.split(' ')[0];
+  $('#tally').classList.add('show');
+  $('#tally-toggle').textContent='▴ Hide the tally';
+  renderTally();
+};
+$('#edit').onclick=()=>{ $('#done').classList.remove('show'); $('#form').style.display='block'; $('#submit').disabled=false; refreshSubmit(); window.scrollTo({top:0,behavior:'smooth'}); };
+$('#tally-toggle').onclick=()=>{ const t=$('#tally'); const open=t.classList.toggle('show'); $('#tally-toggle').textContent=open?'▴ Hide the tally':'▾ See what everyone picked'; if(open) renderTally(); };
+
+function refresh(){ $('#head-resp').textContent=allDocs.length; $('#head-count').textContent=PARTY_GUESS; paintRoster(allDocs); paintPeople(); if($('#tally').classList.contains('show')) renderTally(); }
+
+function paintRoster(all){
+  const el=$('#roster-chips'); if(!el) return;
+  if(!all.length){ el.innerHTML=''; return; }
+  const me=slug(state.name);
+  el.innerHTML=`<span class="roster-cap">Already filled out (${all.length})</span>`+all.map(r=>`<span class="pchip${r.id===me?' me':''}">${esc(firstName(r))}</span>`).join('');
+}
+
+function renderTally(){
+  const all=allDocs; const el=$('#tally');
+  if(!all.length){ el.innerHTML=`<div class="card"><p class="empty">No responses yet — be the first.</p></div>`; return; }
+  const cabinName=id=>(CABINS.find(c=>c.id===id)||{}).name||id;
+  const cabinUrl=id=>(CABINS.find(c=>c.id===id)||{}).url||'#';
+  const dateHTML=DATES.map(d=>{
+    let y=0,n=0;
+    all.forEach(r=>{ const v=r.dates&&r.dates[d.id]; if(v==='yes')y++;else if(v==='no')n++; });
+    const tot=Math.max(1,y+n);
+    return `<div class="tline"><div class="lab">${esc(d.range)} <span>${y} yes · ${n} no</span></div><div class="bar"><i class="seg-yes" style="width:${y/tot*100}%"></i><i class="seg-no" style="width:${n/tot*100}%"></i></div></div>`;
+  }).join('');
+  const depCount={};
+  all.forEach(r=>{ if(r.depart) (depCount[r.depart]=depCount[r.depart]||[]).push(r.name.split(' ')[0]); });
+  const depHTML=Object.keys(depCount).length?`<ul class="timelist">${Object.entries(depCount).map(([t,who])=>`<li><b>${esc(t)}</b> — ${esc(who.join(', '))}</li>`).join('')}</ul>`:`<p class="empty">No times yet.</p>`;
+  const votes={};
+  all.forEach(r=>(r.cabins||[]).forEach(id=>votes[id]=(votes[id]||0)+1));
+  const ranked=Object.entries(votes).sort((a,b)=>b[1]-a[1]);
+  const cabinHTML=ranked.length?`<ul class="votes">${ranked.map(([id,n])=>{ const u=cabinUrl(id); const nm=(u&&u!=='#')?`<a class="c-link" href="${esc(u)}" target="_blank" rel="noopener">${esc(cabinName(id))} ↗</a>`:esc(cabinName(id)); return `<li><span>${nm}</span><span class="cnt">${n}</span></li>`; }).join('')}</ul>`:`<p class="empty">No cabin votes yet.</p>`;
+  const drivers=all.filter(r=>r.drive==='yes');
+  const totalSeats=drivers.reduce((s,r)=>s+(r.seats||0),0);
+  const driveHTML=drivers.length?`<p class="seatcount">${totalSeats} <small>seats across ${drivers.length} driver${drivers.length>1?'s':''}</small></p><ul class="timelist">${drivers.map(r=>`<li><b>${esc(r.name.split(' ')[0])}</b> — ${r.seats} seats · ${esc(r.luggage||'')}</li>`).join('')}</ul>`:`<p class="empty">No drivers yet.</p>`;
+  const acts=all.filter(r=>r.acts);
+  const actHTML=acts.length?`<ul class="acts">${acts.map(r=>`<li><span class="who">${esc(r.name.split(' ')[0])}</span>${esc(r.acts)}</li>`).join('')}</ul>`:`<p class="empty">No ideas yet — add some above.</p>`;
+  const roster=all.map(r=>esc(r.name.split(' ')[0])).join(' · ');
+  el.innerHTML=`<div class="card"><h3>Who's answered (${all.length})</h3><div class="roster">${roster}</div><div class="tline"><div class="lab">Best weekend</div></div>${dateHTML}</div><div class="card"><h3>Friday departures</h3>${depHTML}</div><div class="card"><h3>Cabin votes</h3>${cabinHTML}</div><div class="card"><h3>Wheels &amp; luggage</h3>${driveHTML}</div><div class="card"><h3>Activity ideas</h3>${actHTML}</div>`;
+}
+
+async function saveResponse(id, payload){
+  if(db){ await _setDoc(_doc(RESPONSES, id), payload); return; }
+  localStore.set(id, { id, ...payload });
+  allDocs=[...localStore.values()].sort((a,b)=>(a.ts||0)-(b.ts||0));
+  refresh();
+}
+
+paintPeople();
+refresh();
+(async ()=>{
+  try{
+    const cfg = { apiKey:"AIzaSyAoukSd5EpUuPxOqtTT5lPy0MaHDD__jp0", authDomain:"cabin-202.firebaseapp.com", projectId:"cabin-202", storageBucket:"cabin-202.firebasestorage.app", messagingSenderId:"357003966613", appId:"1:357003966613:web:5d9a8deff958233ca6839c" };
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js");
+    const { getFirestore, collection, doc, setDoc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
+    const app = initializeApp(cfg);
+    db = getFirestore(app);
+    RESPONSES = collection(db, 'responses');
+    _setDoc = setDoc; _doc = doc;
+    onSnapshot(RESPONSES, snap=>{ allDocs=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.ts||0)-(b.ts||0)); refresh(); }, err=>console.error('Firestore error', err));
+  }catch(e){ console.warn('Firebase unavailable — local-only mode.', e); }
+})();
+</script>
